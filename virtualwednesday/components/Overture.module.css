@@ -1,0 +1,16 @@
+.overture {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  background: var(--bg);
+  pointer-events: none;
+}
+
+.mark {
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--black);
+  letter-spacing: var(--tracking-wordmark);
+}

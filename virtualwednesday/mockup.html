@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VirtualWednesday — mockup</title>
+  <meta name="theme-color" content="#f4f3f0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --bg:#f4f3f0; --black:#000; --on-dark:#fff;
+      --subtitle-color:#2b2b2b; --nav-link-color:#292928; --footer-link:#1f1f1f;
+      --accent-link:#1a365d; --bg-raised:#faf9f6; --hairline:#e3e1db;
+      --radius-pill:999px; --container:1044px; --pad:32px;
+      --ease:cubic-bezier(.22,1,.36,1); --t:opacity .15s ease;
+    }
+    *,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+    html,body{
+      font-family:'Geist',sans-serif; background:var(--bg); color:var(--black);
+      min-height:100vh; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    }
+    a{ color:inherit; text-decoration:none; }
+    .container{ width:100%; max-width:var(--container); margin:0 auto; padding-inline:var(--pad); }
+    :focus-visible{ outline:2px solid var(--accent-link); outline-offset:3px; }
+
+    /* ── NAV ── */
+    nav{
+      position:fixed; top:0; left:50%; transform:translateX(-50%);
+      width:100%; max-width:var(--container); height:72px;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:0 var(--pad); z-index:100; background:var(--bg);
+    }
+    .logo{ font-size:20px; font-weight:600; letter-spacing:-.03em; }
+    .nav-links{ display:flex; align-items:center; gap:32px; list-style:none; }
+    .nav-links a{ font-size:14px; color:var(--nav-link-color); text-transform:uppercase;
+      display:inline-flex; align-items:center; gap:4px; transition:var(--t); }
+    .nav-links a:hover{ opacity:.7; }
+
+    /* ── SECTION RHYTHM ── */
+    section{ scroll-margin-top:90px; }
+    .reveal{ opacity:0; transform:translateY(8px); transition:opacity .6s var(--ease), transform .6s var(--ease); }
+    .reveal.in{ opacity:1; transform:none; }
+
+    /* ── HERO ── */
+    .hero{ min-height:100vh; display:flex; flex-direction:column; align-items:center;
+      justify-content:center; gap:36px; text-align:center; padding:120px var(--pad) 80px; }
+    .display{ font-size:clamp(64px,10vw,128px); font-weight:500; line-height:1; letter-spacing:-.06em; }
+    .hero-sub{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; justify-content:center;
+      max-width:600px; margin:14px auto 0; }
+    .hero-sub p{ font-size:16px; color:var(--subtitle-color); letter-spacing:-.02em; line-height:1.4; }
+    .link-inline{ color:var(--accent-link); text-decoration:underline; font-size:14px; transition:var(--t); }
+    .link-inline:hover{ opacity:.8; }
+
+    /* ── VOICE ORB ── */
+    .orb{ width:min(360px,72vw); height:min(360px,72vw); }
+    .orb circle, .orb path{ fill:none; stroke:var(--black); }
+    .ring{ transform-origin:center; transform-box:fill-box; }
+    .ring.r1{ animation:breathe 6s var(--ease) infinite; }
+    .ring.r2{ animation:breathe 6s var(--ease) infinite .4s; opacity:.55; }
+    .ring.r3{ animation:breathe 6s var(--ease) infinite .8s; opacity:.3; }
+    .ring.navy{ stroke:var(--accent-link); opacity:.5; animation:breathe 7s var(--ease) infinite .2s; }
+    .wave{ stroke-width:2; animation:wave 4s ease-in-out infinite; }
+    @keyframes breathe{ 0%,100%{ transform:scale(.92); } 50%{ transform:scale(1.04); } }
+    @keyframes wave{ 0%,100%{ d:path("M40 160 Q 90 150 120 160 T 200 160 T 280 160 T 320 160"); }
+                     50%{ d:path("M40 160 Q 90 120 120 160 T 200 200 T 280 130 T 320 160"); } }
+
+    /* ── APP IN ACTION ── */
+    .band{ padding:96px 0; }
+    .eyebrow{ font-size:12px; font-weight:500; letter-spacing:.08em; text-transform:uppercase; color:var(--subtitle-color); }
+    .h2{ font-size:clamp(28px,4vw,40px); font-weight:500; line-height:1.05; letter-spacing:-.04em; margin-top:12px; }
+    .lead{ font-size:16px; line-height:1.5; letter-spacing:-.01em; color:var(--subtitle-color); max-width:560px; margin-top:14px; }
+
+    .app-grid{ display:grid; grid-template-columns:1.1fr .9fr; gap:48px; align-items:center; margin-top:48px; }
+    .card{ background:var(--bg-raised); border:1px solid var(--hairline); border-radius:20px;
+      padding:28px; min-height:340px; display:flex; flex-direction:column; gap:18px; }
+    .card-head{ display:flex; align-items:center; justify-content:space-between; }
+    .card-step{ font-size:12px; text-transform:uppercase; letter-spacing:.08em; color:var(--subtitle-color); }
+    .dots{ display:flex; gap:6px; }
+    .dot{ width:7px; height:7px; border-radius:999px; background:var(--hairline); transition:background .3s ease; }
+    .dot.active{ background:var(--black); }
+
+    /* step panels */
+    .panel{ display:none; flex-direction:column; gap:16px; animation:fade .5s var(--ease); }
+    .panel.show{ display:flex; }
+    @keyframes fade{ from{ opacity:0; transform:translateY(6px);} to{ opacity:1; transform:none;} }
+    .prompt{ font-size:20px; font-weight:500; letter-spacing:-.02em; }
+    .bubble{ align-self:flex-start; background:var(--bg); border:1px solid var(--hairline);
+      border-radius:14px; padding:12px 16px; font-size:15px; line-height:1.45; max-width:90%; }
+    .bubble.me{ align-self:flex-end; background:var(--black); color:var(--on-dark); border-color:var(--black); }
+    .typing::after{ content:'▍'; animation:blink 1s steps(1) infinite; }
+    @keyframes blink{ 50%{ opacity:0; } }
+    .chips{ display:flex; flex-wrap:wrap; gap:10px; }
+    .chip{ border:1px solid var(--black); border-radius:999px; padding:8px 16px; font-size:14px;
+      opacity:0; transform:translateY(6px); animation:chipin .5s var(--ease) forwards; }
+    .profile{ font-size:13px; text-transform:uppercase; letter-spacing:.06em; color:var(--subtitle-color); }
+    @keyframes chipin{ to{ opacity:1; transform:none; } }
+    .reclaim{ display:inline-flex; align-items:center; gap:8px; font-size:13px; color:var(--subtitle-color); }
+    .reclaim b{ color:var(--black); font-weight:600; }
+
+    .app-aside h3{ font-size:22px; font-weight:500; letter-spacing:-.03em; }
+    .app-aside p{ font-size:15px; line-height:1.5; color:var(--subtitle-color); margin-top:8px; }
+    .app-steps{ list-style:none; margin-top:24px; display:flex; flex-direction:column; gap:16px; }
+    .app-steps li{ display:flex; gap:14px; align-items:baseline; cursor:pointer; }
+    .app-steps .n{ font-size:12px; color:var(--subtitle-color); width:22px; }
+    .app-steps .lbl{ font-size:16px; transition:var(--t); }
+    .app-steps li.active .lbl{ font-weight:600; }
+    .app-steps li:not(.active) .lbl{ opacity:.45; }
+
+    /* ── HOW IT WORKS ── */
+    .steps{ display:grid; grid-template-columns:repeat(3,1fr); gap:32px; margin-top:48px; }
+    .step .n{ font-size:13px; color:var(--subtitle-color); }
+    .step h4{ font-size:22px; font-weight:500; letter-spacing:-.03em; margin-top:10px; }
+    .step p{ font-size:15px; line-height:1.5; color:var(--subtitle-color); margin-top:10px; }
+
+    /* ── CTA + FOOTER ── */
+    .cta{ display:flex; flex-direction:column; align-items:center; text-align:center; gap:16px;
+      padding:120px var(--pad); max-width:480px; margin:0 auto; }
+    .cta h2{ font-size:28px; font-weight:700; letter-spacing:-.04em; }
+    .cta p{ font-size:14px; line-height:1.4; }
+    .pill{ display:inline-flex; align-items:center; gap:6px; background:var(--black); color:var(--on-dark);
+      font-size:16px; padding:16px 28px; border-radius:var(--radius-pill); margin-top:8px; transition:var(--t); }
+    .pill:hover{ opacity:.85; }
+    footer{ max-width:var(--container); margin:0 auto; padding:24px var(--pad) 40px;
+      display:flex; align-items:center; justify-content:center; gap:24px; flex-wrap:wrap; }
+    .footer-copy{ font-size:12px; text-transform:uppercase; }
+    .footer-links{ display:flex; gap:16px; }
+    .footer-links a{ font-size:12px; color:var(--footer-link); text-transform:uppercase; transition:var(--t); }
+    .footer-links a:hover{ opacity:.7; }
+    .hr{ height:1px; background:var(--hairline); border:0; max-width:var(--container); margin:0 auto; }
+
+    /* ── OVERTURE ── */
+    #overture{ position:fixed; inset:0; z-index:9999; display:grid; place-items:center;
+      background:var(--bg); pointer-events:none; }
+    #overture .mark{ font-size:20px; font-weight:600; letter-spacing:-.03em; opacity:0; transform:translateY(12px); }
+    .play .mark{ animation:markin .8s var(--ease) .15s forwards, marklift .7s var(--ease) 1.5s forwards; }
+    @keyframes markin{ to{ opacity:1; transform:translateY(0); } }
+    @keyframes marklift{ to{ opacity:0; transform:translateY(-40vh); } }
+    #overture.done{ opacity:0; transition:opacity .4s ease; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width:865px){
+      .container{ padding-inline:20px; }
+      nav{ height:60px; padding:0 20px; } .nav-links{ gap:16px; } .nav-links a{ font-size:12px; }
+      .app-grid{ grid-template-columns:1fr; gap:32px; }
+      .steps{ grid-template-columns:1fr; gap:24px; }
+      .hero{ gap:28px; }
+    }
+
+    @media (prefers-reduced-motion:reduce){
+      *,*::before,*::after{ animation-duration:.001ms!important; animation-iteration-count:1!important;
+        transition-duration:.001ms!important; }
+      #overture{ display:none!important; }
+      .reveal{ opacity:1; transform:none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- OVERTURE -->
+  <div id="overture" aria-hidden="true"><span class="mark">virtualwednesday</span></div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#top" class="logo">virtualwednesday</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#" >Careers</a></li>
+      <li><a href="#">Contact ↗</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <svg class="orb" viewBox="0 0 360 360" aria-hidden="true">
+      <circle class="ring r1" cx="180" cy="180" r="120" stroke-width="1.5"/>
+      <circle class="ring r2" cx="180" cy="180" r="90" stroke-width="1.5"/>
+      <circle class="ring navy" cx="180" cy="180" r="150" stroke-width="1"/>
+      <circle class="ring r3" cx="180" cy="180" r="56" stroke-width="1.5"/>
+      <path class="wave" d="M40 180 Q 90 170 120 180 T 200 180 T 280 180 T 320 180"/>
+    </svg>
+    <div>
+      <div class="display">Less screen.<br/>More life.</div>
+      <div class="hero-sub">
+        <p>Reflection builds a private, secure agent that&rsquo;s truly yours &mdash; so you can get off your devices and into the magic of the real world.&nbsp;</p>
+        <a href="#about" class="link-inline">Learn More</a>
+      </div>
+    </div>
+  </section>
+
+  <hr class="hr"/>
+
+  <!-- APP IN ACTION -->
+  <section class="band container" id="about">
+    <div class="reveal">
+      <span class="eyebrow">The founding exercise</span>
+      <h2 class="h2">Reflection becomes your voice.</h2>
+      <p class="lead">A few honest minutes a week. We listen, and your signature voice takes shape —
+        so your own agent can speak, and act, like you.</p>
+    </div>
+
+    <div class="app-grid reveal">
+      <!-- animated card -->
+      <div class="card">
+        <div class="card-head">
+          <span class="card-step" id="cardStep">Reflect</span>
+          <span class="dots">
+            <span class="dot active" data-i="0"></span>
+            <span class="dot" data-i="1"></span>
+            <span class="dot" data-i="2"></span>
+          </span>
+        </div>
+
+        <!-- step 0: reflect -->
+        <div class="panel show" data-panel="0">
+          <div class="prompt">What gave you energy this week?</div>
+          <div class="bubble me" id="answer"></div>
+        </div>
+
+        <!-- step 1: shape voice -->
+        <div class="panel" data-panel="1">
+          <div class="profile">Your signature voice</div>
+          <div class="chips" id="chips"></div>
+        </div>
+
+        <!-- step 2: agent acts -->
+        <div class="panel" data-panel="2">
+          <div class="bubble">I moved your 9am so you can keep the morning walk. Replied to Sam in your words.</div>
+          <span class="reclaim">⌁ <b>4 hrs back</b> this week</span>
+        </div>
+      </div>
+
+      <!-- aside step list -->
+      <div class="app-aside">
+        <h3>Three quiet steps.</h3>
+        <p>The rest is yours.</p>
+        <ul class="app-steps" id="stepList">
+          <li class="active" data-i="0"><span class="n">01</span><span class="lbl">Reflect</span></li>
+          <li data-i="1"><span class="n">02</span><span class="lbl">Shape your voice</span></li>
+          <li data-i="2"><span class="n">03</span><span class="lbl">Your agent acts</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <hr class="hr"/>
+
+  <!-- HOW IT WORKS -->
+  <section class="band container" id="how">
+    <div class="reveal">
+      <span class="eyebrow">How it works</span>
+      <h2 class="h2">Less time managing your life.<br/>More time living it.</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="n">01</div><h4>Reflect</h4>
+        <p>Answer a few thoughtful prompts each week. No performance, no feed — just you, thinking out loud.</p></div>
+      <div class="step reveal"><div class="n">02</div><h4>Shape your voice</h4>
+        <p>Your reflections compose a signature voice: your tone, your values, the way you actually sound.</p></div>
+      <div class="step reveal"><div class="n">03</div><h4>Your agent acts</h4>
+        <p>Your own agent handles the busywork in your voice — and gives you back the hours that matter.</p></div>
+    </div>
+  </section>
+
+  <hr class="hr"/>
+
+  <!-- CTA -->
+  <section class="cta reveal">
+    <h2>Stay tuned</h2>
+    <p>Help shape the future of connection by being part of our early community of experience-ready members.</p>
+    <a class="pill" href="#">Join the Waitlist ↗</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-copy">© 2025 VIRTUALWEDNESDAY, INC</span>
+    <div class="footer-links">
+      <a href="#">Terms</a>
+      <a href="#">Privacy</a>
+    </div>
+  </footer>
+
+  <script>
+    /* ── Overture: play once per session, honor reduced motion ── */
+    (function(){
+      var el = document.getElementById('overture');
+      var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce || sessionStorage.getItem('vw-overture-seen')) { el.remove(); return; }
+      sessionStorage.setItem('vw-overture-seen','1');
+      el.classList.add('play');
+      setTimeout(function(){ el.classList.add('done'); }, 2200);
+      setTimeout(function(){ el.remove(); }, 2700);
+    })();
+
+    /* ── Reveal on scroll ── */
+    (function(){
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, { threshold:.15 });
+      document.querySelectorAll('.reveal').forEach(function(n){ io.observe(n); });
+    })();
+
+    /* ── App-in-action stepped loop ── */
+    (function(){
+      var stepNames = ['Reflect','Shape your voice','Your agent acts'];
+      var answer = "Long walks, an unhurried dinner with friends, and finally finishing the book.";
+      var traits = ['warm','direct','curious','unhurried'];
+      var panels = document.querySelectorAll('.panel');
+      var dots = document.querySelectorAll('.dot');
+      var listItems = document.querySelectorAll('#stepList li');
+      var stepLabel = document.getElementById('cardStep');
+      var answerEl = document.getElementById('answer');
+      var chipsEl = document.getElementById('chips');
+      var i = 0, timer;
+
+      function typeAnswer(done){
+        answerEl.textContent = ''; answerEl.classList.add('typing');
+        var k = 0;
+        var iv = setInterval(function(){
+          answerEl.textContent = answer.slice(0, ++k);
+          if (k >= answer.length){ clearInterval(iv); answerEl.classList.remove('typing'); done && done(); }
+        }, 28);
+      }
+      function buildChips(){
+        chipsEl.innerHTML = '';
+        traits.forEach(function(t, idx){
+          var c = document.createElement('span');
+          c.className = 'chip'; c.textContent = t; c.style.animationDelay = (idx*0.12)+'s';
+          chipsEl.appendChild(c);
+        });
+      }
+      function show(n){
+        i = n;
+        panels.forEach(function(p){ p.classList.toggle('show', +p.dataset.panel === n); });
+        dots.forEach(function(d){ d.classList.toggle('active', +d.dataset.i === n); });
+        listItems.forEach(function(li){ li.classList.toggle('active', +li.dataset.i === n); });
+        stepLabel.textContent = stepNames[n];
+        if (n === 0) typeAnswer();
+        if (n === 1) buildChips();
+      }
+      function next(){ show((i+1) % 3); schedule(); }
+      function schedule(){ clearTimeout(timer); timer = setTimeout(next, i===0 ? 3600 : 3000); }
+
+      // start when scrolled into view
+      var started = false;
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if (e.isIntersecting && !started){ started = true; show(0); schedule(); }
+        });
+      }, { threshold:.3 });
+      io.observe(document.querySelector('.app-grid'));
+
+      // manual step via list click
+      listItems.forEach(function(li){
+        li.addEventListener('click', function(){ show(+li.dataset.i); schedule(); });
+      });
+    })();
+  </script>
+</body>
+</html>

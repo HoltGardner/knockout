@@ -1,0 +1,18 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: var(--black);
+  color: var(--on-dark);
+  font-size: 16px;
+  font-weight: 400;
+  padding: 16px 28px;
+  border-radius: var(--radius-pill);
+  transition: var(--transition);
+  border: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  opacity: 0.85;
+}
