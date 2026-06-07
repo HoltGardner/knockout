@@ -4,6 +4,12 @@ A portable, implementation-ready specification of the **Overtone** design langua
 documented so it can be applied to other projects. The reference implementation is
 the **VirtualWednesday** landing page, which is built in this exact system.
 
+> **Source note (verified against the live site):** overto.ne is a **Framer** site (published
+> Feb 17, 2026), animated with **Framer Motion**. Its entrance uses Framer "appear" animations
+> that honor `prefers-reduced-motion` (`data-framer-appear-animation="no-preference"`). The page
+> background computes to `rgb(244, 243, 240)` = `#f4f3f0` with `-webkit-font-smoothing: antialiased`,
+> and it responds at a **~865px** breakpoint (`min-width: 865px` / `max-width: 864.98px`). Served via Cloudflare.
+
 > **How to use this file:** Hand it to Claude (or any designer/developer) alongside a
 > target project. Sections 3–7 are the *source of truth* (tokens + components).
 > Section 10 is the step-by-step integration guide. Everything is expressed as
@@ -141,7 +147,8 @@ padding-inline: 32px;   /* 20px on mobile */
 **Spacing scale (px):** `4 · 6 · 8 · 12 · 16 · 24 · 32 · 48 · 60 · 80 · 100`
 (Use these increments for all gaps/padding to stay on-system.)
 
-**Responsive (`max-width: 768px`)**
+**Responsive (live Overtone breakpoint: `~865px` — `min-width: 865px` / `max-width: 864.98px`)**
+*(The VirtualWednesday reference implementation uses a `768px` breakpoint; align to `865px` to match Overtone.)*
 - Navbar: `height: 60px`, `padding: 0 20px`
 - Nav links: `gap: 20px`, `font-size: 12px`
 - Main: `gap: 48px`, `padding: 80px 20px 60px`
@@ -279,7 +286,8 @@ Layout skeleton: `fixed nav (72px)` → `main { flex center; gap:60px; padding:1
   "spacing": [4, 6, 8, 12, 16, 24, 32, 48, 60, 80, 100],
   "container": { "maxWidth": "1044px", "padInline": "32px", "padInlineMobile": "20px" },
   "motion": { "transition": "opacity 0.15s ease", "hoverLink": 0.7, "hoverButton": 0.85 },
-  "breakpoint": "768px",
+  "breakpoint": "865px",
+  "tech": { "platform": "Framer", "animation": "Framer Motion (appear)", "respectsReducedMotion": true, "cdn": "Cloudflare" },
   "glyph": { "outbound": "↗" }
 }
 ```

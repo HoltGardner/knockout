@@ -53,6 +53,12 @@ The entrance into virtualwednesday.com is a **cinematic, ~2.4s reveal** on the w
 It is the brand's signature moment: calm, typographic, and unhurried. It must feel like a
 held breath that resolves into the hero.
 
+> **Inspiration, verified:** Overtone is a **Framer** site that animates its entrance with
+> **Framer Motion** "appear" animations, set to honor reduced-motion
+> (`data-framer-appear-animation="no-preference"`). Our Overture mirrors that approach: a tasteful
+> appear/reveal that **must respect `prefers-reduced-motion`**. Build it in Framer Motion (or GSAP)
+> if you prefer — keep the *feel* and the timing below.
+
 ### Storyboard
 
 | Phase | Time | What happens | Motion |
@@ -243,7 +249,8 @@ padding-inline: 32px;    /* 20px on mobile */
 - **Primary region:** full-viewport flex column, centered both axes, `gap: 60px`,
   `padding: 100px 32px 80px`.
 - **Spacing scale (px):** `4 · 6 · 8 · 12 · 16 · 24 · 32 · 48 · 60 · 80 · 100`. Use only these.
-- **Breakpoint:** `768px` — nav 72→60px, main gap 60→48px, padding tightens (see snippet/tokens).
+- **Breakpoint:** `865px` (matching Overtone's live `min-width: 865px` / `max-width: 864.98px`) —
+  nav 72→60px, main gap 60→48px, padding tightens (see snippet/tokens).
 
 **Accessibility**
 - Body text ≥ 16px; meet WCAG AA contrast (the near-black-on-paper palette passes comfortably).
@@ -387,8 +394,8 @@ UPPERCASE microcopy, one black pill CTA, ↗ for outbound, opacity-only motion, 
     "easeReveal": "cubic-bezier(0.22,1,0.36,1)",
     "hoverLink": 0.7, "hoverButton": 0.85
   },
-  "overture": { "totalMs": 2400, "staggerMs": 60, "playOncePerSession": true },
-  "breakpoint": "768px",
+  "overture": { "totalMs": 2400, "staggerMs": 60, "playOncePerSession": true, "respectsReducedMotion": true },
+  "breakpoint": "865px",
   "glyph": { "outbound": "↗" }
 }
 ```
