@@ -30,9 +30,10 @@ stakes.
 
 ## Status
 
-Decisions D-001–D-005 locked. Phase 0 T0.1 (monorepo scaffold, CI, ethics
-guardrail suite) is complete, and T0.6's Stripe payments core
-(`packages/payments` + stake accrual) is built and tested — all verified
-locally via `pnpm install && pnpm check`. Next: migrate this tree to the
-dedicated repository ([`docs/migration.md`](docs/migration.md)), then T0.2
-(ledger schema) and endpoint mounting.
+Decisions D-001–D-005 locked. Phase 0 progress: T0.1 (scaffold + CI +
+ethics suite), T0.2 (Drizzle ledger schema with the §1.4.2 guardrail
+introspection-tested), T0.3 (code generation + print-batch CSV), and
+T0.6's Stripe payments core are built — all verified locally via
+`pnpm install && pnpm check` (54 tests). Next: migrate this tree to the
+dedicated repository ([`docs/migration.md`](docs/migration.md)), then
+T0.4/T0.5 (redemption flow, event store) and endpoint mounting.

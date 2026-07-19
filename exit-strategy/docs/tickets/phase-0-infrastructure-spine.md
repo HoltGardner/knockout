@@ -22,31 +22,47 @@ off in this file in the same PR as the code.
 
 ## T0.2 — Ledger schema with the §1.4.2 guardrail
 
-- [ ] Drizzle schema: `accounts`, `codes` (id, kind: `print_batch` |
-      `personal`, owner_account, status), `redemptions` (code, redeemer,
-      channel: `in_person` | `online`, proximity_confirmed, weight),
-      `purchases` (sku, channel: `dtc` | `amazon`, amount_cents,
-      attributed_code), `stake_entries` (purchase_id NOT NULL FK →
-      purchases, beneficiary_account, amount_cents), `payouts`.
-- [ ] `stake_entries` has **no** column or join path referencing codes,
-      redemptions, accounts-recruited, or any token price — purchases only
-      (beneficiary aside).
-- [ ] Ethics tests: (a) schema introspection asserts `stake_entries`' only
-      outbound FK besides beneficiary is `purchase_id`; (b) property test:
-      total stakes for an account are invariant under adding redemptions
-      with no purchases (recruiting alone never pays).
+- [x] Drizzle schema (`packages/ledger/src/schema.ts`): `accounts` (with
+      `age_verified_at` for §1.4.5), `codes` (kind `print_batch` |
+      `personal`, owner nullable until activation, status), `redemptions`
+      (code, redeemer, channel, proximity_confirmed, applied weight),
+      `purchases` (sku, channel, amount_cents, attributed_code),
+      `stake_entries` (purchase_id NOT NULL FK → purchases,
+      beneficiary_account, amount_cents), `payouts`.
+- [x] `stake_entries` columns and FKs form a closed set: purchases (value
+      source) and accounts (beneficiary) only.
+- [x] Ethics tests (`tests/ethics/src/schema-guardrail.test.ts`):
+      (a) introspection via `getTableConfig` asserts the closed column set,
+      the FK targets, and that purchase linkage is NOT NULL; (b) property
+      tests: 500 purchase-less redemptions leave stake balances bit-for-bit
+      identical, 100 redemptions with zero purchases pay exactly nothing,
+      duplicate deliveries never double-pay (via
+      `projectStakeBalances`, an early slice of T0.5).
+- [ ] Generate SQL migrations with drizzle-kit once a live Postgres target
+      exists (deploy-time task; introspection tests already gate the schema
+      they generate from).
 - **AC:** ethics suite green; a migration adding a forbidden reference makes
-  it red.
+  it red. *Verified 2026-07-19: adding a `redemption_id` reference to
+  `stake_entries` turned both introspection tests red; green on revert.*
 
 ## T0.3 — Code generation service
 
-- [ ] Collision-resistant short codes (unambiguous alphabet, checksum),
-      batch generation for print runs (sized for D-002's 1,000-unit run,
-      one code per deck + per rules card), personal invite codes on demand.
-- [ ] Print-batch export (CSV) for the print vendor; codes created
-      `unassigned`, bound to a sharer at first activation.
+- [x] Collision-resistant short codes (`packages/codes`): 30-symbol
+      alphabet with 0/O, 1/I/L, U dropped for hand entry; format
+      `PREFIX-XXXX-XXXC` with a weighted mod-30 check character (catches
+      all single typos tested and >95% of adjacent transpositions);
+      deterministic seeded rng for tests, crypto rng for production;
+      batch generation sized for D-002 (1,000 decks × 2 codes).
+- [x] Print-batch CSV export/import (`packages/codes/src/batch-csv.ts`);
+      parse validates every check character so a corrupted vendor file
+      fails before printing. Codes are created `unassigned` and bind to a
+      sharer at first activation (status enum in the T0.2 schema).
+- [ ] Personal invite codes on demand — generation exists
+      (`generateCode` with a personal prefix); the issuing endpoint lands
+      with T0.4.
 - **AC:** generate 10k codes with zero collisions in test; exported batch
-  re-imports and validates round-trip.
+  re-imports and validates round-trip. *Both verified in the suite
+  2026-07-19.*
 
 ## T0.4 — Redemption flow (proximity-weighted, spec §1.2)
 

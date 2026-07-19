@@ -10,3 +10,5 @@ export {
   type PurchaseRecordedEvent,
   type StakeAccruedEvent,
 } from './events';
+export { projectStakeBalances } from './projections';
+export { accounts, codes, payouts, purchases, redemptions, stakeEntries } from './schema';
