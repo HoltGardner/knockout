@@ -1,0 +1,8 @@
+{
+  "name": "@exit/web",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": { "typecheck": "tsc --noEmit", "test": "vitest run --passWithNoTests" },
+  "dependencies": { "@exit/content": "workspace:*", "@exit/engine": "workspace:*", "@exit/ledger": "workspace:*" }
+}

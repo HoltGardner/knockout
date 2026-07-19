@@ -30,5 +30,7 @@ stakes.
 
 ## Status
 
-Pre-build. Decisions D-001–D-004 are locked; Phase 0 (infrastructure spine)
-is ticketed and ready to start.
+Decisions D-001–D-004 locked. Phase 0 T0.1 (monorepo scaffold, CI, ethics
+guardrail suite) is complete and verified locally — `pnpm install && pnpm
+check`. Next: migrate this tree to the dedicated repository
+([`docs/migration.md`](docs/migration.md)), then T0.2 (ledger schema).

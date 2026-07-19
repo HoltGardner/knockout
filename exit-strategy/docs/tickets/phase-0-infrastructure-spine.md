@@ -7,13 +7,18 @@ off in this file in the same PR as the code.
 
 ## T0.1 — Monorepo scaffold
 
-- [ ] pnpm workspace with `packages/engine`, `packages/content`,
+- [x] pnpm workspace with `packages/engine`, `packages/content`,
       `packages/ledger`, `packages/sim`, `apps/web`, `tests/ethics` per
-      `docs/architecture.md`; strict tsconfig shared via base config.
-- [ ] CI (GitHub Actions): typecheck, lint, Vitest, with `tests/ethics` and
-      `packages/sim` as separately named required jobs.
-- **AC:** clean clone → `pnpm install && pnpm ci` passes; an intentionally
-  failing ethics test blocks the pipeline.
+      `docs/architecture.md` (plus `packages/print`); strict tsconfig shared
+      via base config.
+- [x] CI (GitHub Actions): typecheck, lint, Vitest, with `tests/ethics` and
+      `packages/sim` as separately named required jobs
+      (`.github/workflows/ci.yml` — activates once this tree is a repo
+      root; verified locally until then).
+- **AC:** clean clone → `pnpm install && pnpm check` passes; an intentionally
+  failing ethics test blocks the pipeline. *Verified locally 2026-07-19:
+  full suite green (16 tests); adding a `recruitCount` field to the stake
+  schema turned the ethics suite red, restored green after revert.*
 
 ## T0.2 — Ledger schema with the §1.4.2 guardrail
 
