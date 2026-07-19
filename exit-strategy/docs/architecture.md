@@ -60,8 +60,12 @@ tests/
 - **Zod** for all runtime contracts (API, content files, events).
 - **Vitest** (unit + property tests), **Playwright** (flows), GitHub Actions
   CI running: typecheck, lint, unit, ethics suite, simulation balance suite.
-- **Shopify webhooks** for DTC purchases (spec §4.3); Amazon units carry the
-  coded card so attribution re-links at redemption.
+- **Stripe** for DTC payments (D-005): hosted Checkout for the deck,
+  webhooks as the sole source of `purchase_recorded` events
+  (`packages/payments`). Amazon units carry the coded card so attribution
+  re-links at redemption. A PulseChain settlement rail is explicitly
+  deferred; if it ships, it is a payment rail only — §1.4.2 and the ethics
+  suite apply unchanged.
 
 ## Economic constants (from decisions D-002)
 

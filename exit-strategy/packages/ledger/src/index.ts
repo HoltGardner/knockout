@@ -1,3 +1,4 @@
+export { accrueStake, computeStakeCents, type AccrueStakeInput } from './accrual';
 export {
   CodeActivated,
   CodeIssued,
@@ -6,4 +7,6 @@ export {
   PayoutExecuted,
   PurchaseRecorded,
   StakeAccrued,
+  type PurchaseRecordedEvent,
+  type StakeAccruedEvent,
 } from './events';

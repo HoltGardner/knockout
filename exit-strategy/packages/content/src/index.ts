@@ -1,1 +1,6 @@
-export { DECK_PRICE_CENTS, FIRST_PRINT_RUN_UNITS } from './economics';
+export {
+  DECK_NAME_ESCAPE_VELOCITY,
+  DECK_PRICE_CENTS,
+  DECK_SKU_ESCAPE_VELOCITY,
+  FIRST_PRINT_RUN_UNITS,
+} from './economics';

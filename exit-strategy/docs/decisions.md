@@ -38,3 +38,13 @@ repositories). All development follows the AI-first practices defined in
 `docs/architecture.md` and enforced through `CLAUDE.md` — spec-driven,
 agent-legible code, game content as data, guardrails and balance targets as
 CI tests.
+
+## D-005 — Payments settle on Stripe; crypto layer deferred (2026-07-19)
+
+DTC payments settle on **Stripe** (hosted Checkout for the $24.99 deck,
+webhooks as the source of `purchase_recorded` events). A crypto settlement
+layer on PulseChain is explicitly **deferred** — not part of Phase 0 or the
+launch. When it does come, it is a settlement *rail* only and D-004/§1.4.2
+still bind in full: the ownership stake remains a revenue share on real
+purchases, never a token, on any rail. The ethics suite applies to a future
+crypto integration exactly as it applies to Stripe.

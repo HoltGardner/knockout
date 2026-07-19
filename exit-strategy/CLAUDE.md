@@ -53,5 +53,6 @@ and spec disagree, the spec + decision log win; cite the spec section
 - Work from tickets in `docs/tickets/` — each task there has acceptance
   criteria; implement to those, and update the ticket checklist in the same
   PR as the code.
-- No secrets in the repo. Payment/webhook credentials come from environment
-  configuration only.
+- No secrets in the repo. Stripe credentials (`STRIPE_SECRET_KEY`,
+  `STRIPE_WEBHOOK_SECRET`) and all other payment/webhook credentials come
+  from environment configuration only.

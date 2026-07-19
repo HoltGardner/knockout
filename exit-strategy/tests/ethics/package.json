@@ -4,5 +4,5 @@
   "private": true,
   "type": "module",
   "scripts": { "typecheck": "tsc --noEmit", "test": "vitest run" },
-  "dependencies": { "@exit/ledger": "workspace:*" }
+  "dependencies": { "@exit/content": "workspace:*", "@exit/ledger": "workspace:*" }
 }

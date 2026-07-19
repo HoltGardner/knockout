@@ -30,7 +30,9 @@ stakes.
 
 ## Status
 
-Decisions D-001–D-004 locked. Phase 0 T0.1 (monorepo scaffold, CI, ethics
-guardrail suite) is complete and verified locally — `pnpm install && pnpm
-check`. Next: migrate this tree to the dedicated repository
-([`docs/migration.md`](docs/migration.md)), then T0.2 (ledger schema).
+Decisions D-001–D-005 locked. Phase 0 T0.1 (monorepo scaffold, CI, ethics
+guardrail suite) is complete, and T0.6's Stripe payments core
+(`packages/payments` + stake accrual) is built and tested — all verified
+locally via `pnpm install && pnpm check`. Next: migrate this tree to the
+dedicated repository ([`docs/migration.md`](docs/migration.md)), then T0.2
+(ledger schema) and endpoint mounting.

@@ -69,22 +69,33 @@ off in this file in the same PR as the code.
 - **AC:** replaying the event log from zero reproduces identical
   projections; projection tables can be dropped and rebuilt.
 
-## T0.6 — Revenue-share accounting
+## T0.6 — Revenue-share accounting (Stripe per D-005)
 
-- [ ] Stake accrual rule: configurable percentage of an attributed
-      purchase's `amount_cents`, accrued to the code's owning sharer;
-      economics constants (deck $24.99 per D-002) from
-      `packages/content/economics.ts`.
-- [ ] Shopify webhook consumer records `purchase_recorded` with attributed
-      code (order custom field / discount-code carrier).
+- [x] Stake accrual rule: configurable rate (bps, structurally capped at
+      100% of revenue) applied to an attributed purchase's `amountCents`
+      — `packages/ledger/src/accrual.ts`; economics constants (deck $24.99
+      per D-002) from `packages/content/economics.ts`. Purity locked by
+      `tests/ethics/src/accrual-purity.test.ts`.
+- [x] Stripe integration (`packages/payments`): hosted Checkout params for
+      the deck with the attribution code in session metadata; webhook
+      signature verification; `checkout.session.completed` →
+      `purchase_recorded` with idempotent event ids; mountable
+      (Request → Response) webhook handler. *Verified with signed offline
+      fixtures — 14 tests.*
+- [ ] Mount the webhook + checkout endpoints in `apps/web` and configure
+      the Stripe dashboard endpoint (lands with T0.4/T0.7; needs
+      `STRIPE_SECRET_KEY` + `STRIPE_WEBHOOK_SECRET` at deploy).
 - [ ] Stake ledger screen (spec §1.5.2): what your network earned you —
       reads projections only.
 - **AC:** webhook fixture → purchase → stake visible on the ledger screen;
-  ethics suite still green.
+  ethics suite still green. *Fixture → purchase → stake path verified at
+  the package level 2026-07-19; recruitment-influenced accrual turns the
+  ethics suite red (verified and reverted).*
 
 ## T0.7 — Three-domain funnel wiring (spec §1.3, Part 5 item 2)
 
-- [ ] whatsyourexitstrategy.com: landing + redeem entry + DTC purchase flow.
+- [ ] whatsyourexitstrategy.com: landing + redeem entry + DTC purchase flow
+      (Stripe Checkout via `@exit/payments`, per D-005).
 - [ ] Successful redemption lands on exitstrategy.group (community home).
 - [ ] theschoolofpops.com linked as the depth layer. All three resolve
       every code to the single ledger.

@@ -71,3 +71,6 @@ export const LedgerEvent = z.discriminatedUnion('type', [
   PayoutExecuted,
 ]);
 export type LedgerEvent = z.infer<typeof LedgerEvent>;
+
+export type PurchaseRecordedEvent = z.infer<typeof PurchaseRecorded>;
+export type StakeAccruedEvent = z.infer<typeof StakeAccrued>;
