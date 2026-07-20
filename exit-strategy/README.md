@@ -27,6 +27,8 @@ stakes.
 | [`docs/architecture.md`](docs/architecture.md) | AI-first architecture: spec-driven, content as data, simulation as CI |
 | [`CLAUDE.md`](CLAUDE.md) | Rules of engagement for AI agents building this — including the non-negotiable §1.4 invariants |
 | [`docs/tickets/phase-0-infrastructure-spine.md`](docs/tickets/phase-0-infrastructure-spine.md) | The current build ticket: the code + attribution spine |
+| [`docs/analysis-profitability.md`](docs/analysis-profitability.md) | The Garry Tan-lens analysis: unit economics, risks, and the three go/no-go gates |
+| [`docs/execution-plan.md`](docs/execution-plan.md) | Step-by-step launch plan, tagged [ME]/[YOU], gated so downside stays capped |
 
 ## Status
 

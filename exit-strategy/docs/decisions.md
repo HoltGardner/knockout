@@ -48,3 +48,13 @@ launch. When it does come, it is a settlement *rail* only and D-004/§1.4.2
 still bind in full: the ownership stake remains a revenue share on real
 purchases, never a token, on any rail. The ethics suite applies to a future
 crypto integration exactly as it applies to Stripe.
+
+## D-006 (PROPOSED) — Numeric go/no-go gates before spend (2026-07-20)
+
+Proposed, pending founder lock. Three gates from
+`analysis-profitability.md` govern when money moves: **G1** free-game
+demand signal (≥40% first-game completion, ≥15% second-game starts, n≥200)
+before preorder push; **G2** ≥150 paid preorders before any print vendor
+is paid; **G3** blended K ≥ 0.35 with in-person ≥30% of weighted shares
+and ≥25% deck-code redemption before run 2 or paid acquisition. Every gate
+review, pass or fail, is recorded here with the measured numbers.
